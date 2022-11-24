@@ -1,0 +1,49 @@
+main {
+  min-height: 80vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h3 {
+  /* padding: 1rem 0; */
+  margin: 0.8rem 0 0 1.5rem;
+}
+
+.card {
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.rating-text {
+  float: right;
+}
+
+.to-top {
+  background: #e6e2dc;
+  position: fixed;
+  bottom: 16px;
+  right: 32px;
+  width: 50px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #1f1f1f;
+  pointer-events: none;
+  text-decoration: none;
+  transition: all 0.6s;
+  opacity: 0;
+}
+
+.to-top.active {
+  opacity: 1;
+  pointer-events: auto;
+  bottom: 32px;
+}
