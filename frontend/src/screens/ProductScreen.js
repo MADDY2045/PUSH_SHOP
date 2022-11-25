@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Image, Button, ListGroup, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import axios from 'axios';
+import { listProductDetails } from '../actions/productActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+
+  const { error, loading, product } = useSelector(
+    (state) => state.productDetails
+  );
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`);
+    dispatch(listProductDetails(match.params.id));
+  }, [dispatch, match.params.id]);
 
-      setProduct(data);
-    };
+  if (loading) return <Loader />;
 
-    fetchProduct();
-    // eslint-disable-next-line
-  }, []);
+  if (error) return <Message variant="danger">{error}</Message>;
 
   return (
     <>
