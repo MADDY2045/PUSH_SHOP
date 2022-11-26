@@ -7,6 +7,9 @@ import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import { Route, Switch } from 'react-router-dom';
 import BacktoTop from './components/BacktoTop';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const App = () => {
   return (
@@ -15,9 +18,12 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Switch>
-            <Route exact path="/" component={HomeScreen} />
+            <Route path="/login" component={LoginScreen} />
+            <Route path="/profile" component={ProfileScreen} />
+            <Route path="/register" component={RegisterScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/cart/:id?" component={CartScreen} />
+            <Route exact path="/" component={HomeScreen} />
           </Switch>
         </Container>
       </main>
