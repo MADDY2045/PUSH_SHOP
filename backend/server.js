@@ -2,20 +2,26 @@ import express, { json } from 'express';
 import connectDB from './config/db.js'; //.js extension is mandatory for server side es imports module
 import dotenv from 'dotenv';
 import colors from 'colors';
-import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 
+//middleware exception handlers
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+//routes from controllers
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 dotenv.config();
 const app = express();
 
 //connect the DB
 connectDB();
+
+//body parser
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
