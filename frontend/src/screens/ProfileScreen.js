@@ -20,7 +20,7 @@ const ProfileScreen = ({ location, history }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
 
   const { success } = useSelector((state) => state.userUpdateProfile);
-  console.log('is success', success);
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');

@@ -23,6 +23,19 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
+//for paypal
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+);
+
+//for Razorpay
+app.get('/api/config/razorpay', (req, res) =>
+  res.json({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+  })
+);
+
 app.use(notFound);
 app.use(errorHandler);
 

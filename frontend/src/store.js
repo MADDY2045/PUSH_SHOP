@@ -12,7 +12,11 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
 } from './reducers/userReducers';
-import { orderCreateReducers } from './reducers/orderReducers';
+import {
+  orderCreateReducers,
+  orderDetailsReducer,
+  orderPayReducer,
+} from './reducers/orderReducers';
 
 //create a global reducer using combineReducers
 const reducer = combineReducers({
@@ -24,6 +28,8 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducers,
+  orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
