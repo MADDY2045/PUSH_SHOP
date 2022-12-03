@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
@@ -18,6 +19,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -66,6 +68,24 @@ const ProductEditScreen = ({ match, history }) => {
     );
   };
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const config = {
+        'Content-Type': 'multipart/form-data',
+      };
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
+  };
+
   if (loading) return <Loader />;
 
   return (
@@ -98,14 +118,20 @@ const ProductEditScreen = ({ match, history }) => {
               onChange={(e) => setPrice(e.target.value)}
             ></Form.Control>
           </Form.Group>
-          <Form.Group controlId="image" className="mt-3">
+          <Form.Group controlId="image">
             <Form.Label>IMAGE</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Image URL"
+              placeholder="Enter image url"
               value={image}
               onChange={(e) => setImage(e.target.value)}
             ></Form.Control>
+            <Form.Control
+              type="file"
+              label="Choose File"
+              onChange={uploadFileHandler}
+            ></Form.Control>
+            {uploading && <Loader />}
           </Form.Group>
           <Form.Group controlId="brand" className="mt-3">
             <Form.Label>BRAND</Form.Label>

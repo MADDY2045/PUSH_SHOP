@@ -5,9 +5,16 @@ import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from '../actions/orderActions';
 import Loader from '../components/Loader';
-import { ORDER_PAY_RESET } from '../constants/orderConstants';
+import {
+  ORDER_PAY_RESET,
+  ORDER_DELIVER_RESET,
+} from '../constants/orderConstants';
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id;
@@ -17,6 +24,10 @@ const OrderScreen = ({ match }) => {
 
   const { order, loading, error } = useSelector((state) => state.orderDetails);
   const { loading: loadingPay } = useSelector((state) => state.orderPay);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { loading: loadingDeliver } = useSelector(
+    (state) => state.orderDeliver
+  );
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
@@ -93,6 +104,12 @@ const OrderScreen = ({ match }) => {
       const pay = new window.Razorpay(options);
       pay.open();
     }
+  };
+
+  const deliverHandler = async () => {
+    await dispatch(deliverOrder(order));
+    await dispatch(getOrderDetails(orderId));
+    dispatch({ type: ORDER_DELIVER_RESET });
   };
 
   return (
@@ -207,6 +224,17 @@ const OrderScreen = ({ match }) => {
                   <Col>&#8377; {order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+              {loadingDeliver && <Loader />}
+              {order.isPaid &&
+                userInfo &&
+                userInfo.isAdmin &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button onClick={deliverHandler} className="btn btn-block">
+                      MARK AS DELIVERED
+                    </Button>
+                  </ListGroup.Item>
+                )}
               {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}

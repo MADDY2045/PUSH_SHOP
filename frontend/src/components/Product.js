@@ -7,8 +7,11 @@ const Product = ({ product }) => {
   return (
     <Card className="my-3 p-3 rounded">
       <NavLink className="nav-link" to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
+        <div>
+          <Card.Img src={product.image} variant="top" />
+        </div>
       </NavLink>
+
       <Card.Body>
         <NavLink to={`/product/${product._id}`}>
           <Card.Title as="div">

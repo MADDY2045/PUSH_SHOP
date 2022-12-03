@@ -9,6 +9,7 @@ const Header = ({ history }) => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(logout());
+    history.push('/login');
   };
 
   return (

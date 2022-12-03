@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import BacktoTop from './components/BacktoTop';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -18,11 +18,13 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
 
 const App = () => {
+  const history = useHistory();
   return (
     <>
-      <Header />
+      <Header history={history} />
       <main className="py-3">
         <Container>
           <Switch>
@@ -42,6 +44,7 @@ const App = () => {
               component={ProductEditScreen}
             />
             <Route path="/admin/productlist" component={ProductListScreen} />
+            <Route path="/admin/orderlist" component={OrderListScreen} />
             <Route exact path="/" component={HomeScreen} />
           </Switch>
         </Container>
