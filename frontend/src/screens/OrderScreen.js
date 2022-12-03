@@ -16,7 +16,7 @@ import {
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
   const [sdkReady, setSdkReady] = useState(false);
 
@@ -35,6 +35,9 @@ const OrderScreen = ({ match }) => {
   }, []);
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
     const addRazorpayScript = async () => {
       const script = document.createElement('script');
       script.type = 'text/javascript';
