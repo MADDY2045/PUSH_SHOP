@@ -46,7 +46,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: ORDER_CREATE_FAIL, payload: errorMessage });
   }
@@ -75,7 +76,8 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: ORDER_DETAILS_FAIL, payload: errorMessage });
   }
@@ -116,7 +118,8 @@ export const payOrder =
       });
     } catch (error) {
       const errorMessage =
-        error.response.data.message || 'Something Went Wrong';
+        (error.response && error.response.data.message) ||
+        'Something Went Wrong';
 
       dispatch({ type: ORDER_PAY_FAIL, payload: errorMessage });
     }
@@ -154,7 +157,8 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: ORDER_DELIVER_FAIL, payload: errorMessage });
   }
@@ -183,7 +187,8 @@ export const listMyOrders = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: ORDER_LIST_MY_FAIL, payload: errorMessage });
   }
@@ -212,7 +217,8 @@ export const listOrders = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: ORDER_LIST_FAIL, payload: errorMessage });
   }

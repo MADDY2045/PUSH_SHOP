@@ -25,7 +25,8 @@ export const listProducts = () => async (dispatch) => {
 
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: PRODUCT_LIST_FAIL, payload: errorMessage });
   }
@@ -39,7 +40,8 @@ export const listProductDetails = (id) => async (dispatch) => {
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: PRODUCT_DETAILS_FAIL, payload: errorMessage });
   }
@@ -67,7 +69,8 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       type: PRODUCT_DELETE_SUCCESS,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: errorMessage });
   }
@@ -97,7 +100,8 @@ export const createProduct = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: PRODUCT_CREATE_FAIL, payload: errorMessage });
   }
@@ -131,7 +135,8 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const errorMessage = error.response.data.message || 'Something Went Wrong';
+    const errorMessage =
+      (error.response && error.response.data.message) || 'Something Went Wrong';
 
     dispatch({ type: PRODUCT_UPDATE_FAIL, payload: errorMessage });
   }

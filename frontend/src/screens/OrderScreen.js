@@ -57,7 +57,7 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [orderId, order, dispatch]);
+  }, [orderId, order, dispatch, history, userInfo]);
 
   function addDecimals(num) {
     return num.toFixed(2);
