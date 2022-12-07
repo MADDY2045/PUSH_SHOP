@@ -117,8 +117,8 @@ const OrderScreen = ({ match, history }) => {
 
   return (
     <>
-      <h3>ORDER DETAILS FOR ORDER-ID: ${order._id}</h3>
       <Row>
+        <h3 id="order-details">ORDER DETAILS FOR ORDER-ID: {order._id}</h3>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>

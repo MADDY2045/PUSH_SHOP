@@ -94,3 +94,7 @@ h3 {
   max-height: 50vh;
   overflow: auto;
 }
+
+#order-details {
+  word-break: break-all;
+}
