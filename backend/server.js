@@ -1,5 +1,6 @@
 import path from 'path';
 import express, { json } from 'express';
+import morgan from 'morgan';
 import connectDB from './config/db.js'; //.js extension is mandatory for server side es imports module
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -14,6 +15,9 @@ import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config();
 const app = express();
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 //connect the DB
 connectDB();

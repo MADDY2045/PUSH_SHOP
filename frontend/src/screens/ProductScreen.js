@@ -11,12 +11,18 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import {
+  listProductDetails,
+  createProductReview,
+} from '../actions/productActions';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
 
@@ -24,9 +30,20 @@ const ProductScreen = ({ history, match }) => {
     (state) => state.productDetails
   );
 
+  const { userInfo } = useSelector((state) => state.userLogin);
+
+  const { error: errorReviewCreate, success: successReviewCreate } =
+    useSelector((state) => state.productReviewCreate);
+
   useEffect(() => {
+    if (successReviewCreate) {
+      alert('Review submitted!!');
+      setRating(0);
+      setComment('');
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
     dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match.params.id]);
+  }, [dispatch, match.params.id, successReviewCreate]);
 
   if (loading) return <Loader />;
 
@@ -34,6 +51,11 @@ const ProductScreen = ({ history, match }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createProductReview(match.params.id, { rating, comment }));
   };
 
   return (
@@ -115,6 +137,57 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup.Item>
             </ListGroup>
           </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <h2>REVIEWS</h2>
+          {product.reviews.length === 0 && <Message>NO REVIEWS YET</Message>}
+          <ListGroup variant="flush">
+            {product.reviews.map((review) => (
+              <ListGroup.Item key={review._id}>
+                <strong>{review.name}</strong>
+                <Rating value={review.rating} />
+                <p>{review.createdAt.substring(0, 10)}</p>
+                <p>{review.comment}</p>
+              </ListGroup.Item>
+            ))}
+            <ListGroup.Item>
+              <h2>WRITE A REVIEW</h2>
+              {errorReviewCreate && <Message>{errorReviewCreate}</Message>}
+              {userInfo && (
+                <Form onSubmit={submitHandler}>
+                  <Form.Group controlId="rating" className="mt-3">
+                    <Form.Label>RATING</Form.Label>
+                    <Form.Control
+                      as="select"
+                      onChange={(e) => setRating(e.target.value)}
+                      value={rating}
+                    >
+                      <option value="">SELECT</option>
+                      <option value="1">1 - POOR</option>
+                      <option value="2">2 - FAIR</option>
+                      <option value="3">3 - AVERAGE</option>
+                      <option value="4">4 - GOOD</option>
+                      <option value="5">5 - EXCELLENT</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group controlId="comment" className="mt-3">
+                    <Form.Label>COMMENT</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      row="3"
+                      onChange={(e) => setComment(e.target.value)}
+                      value={comment}
+                    ></Form.Control>
+                  </Form.Group>
+                  <Button variant="primary" type="submit" className="mt-3">
+                    SUBMIT
+                  </Button>
+                </Form>
+              )}
+            </ListGroup.Item>
+          </ListGroup>
         </Col>
       </Row>
     </>
