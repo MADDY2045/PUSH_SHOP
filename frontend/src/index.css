@@ -89,3 +89,8 @@ h3 {
     font-size: 2.5vw;
   }
 }
+
+.review-rating {
+  max-height: 50vh;
+  overflow: auto;
+}

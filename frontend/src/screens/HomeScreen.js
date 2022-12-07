@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Product from '../components/Product';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productActions';
@@ -7,6 +8,7 @@ import Paginate from '../components/Paginate';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import ProductCarousel from '../components/ProductCarousel';
+import Meta from '../components/Meta';
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -28,6 +30,8 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Meta />
+      {keyword && <Link to={`/`}>GO BACK</Link>}
       {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       {products.length === 0 && (

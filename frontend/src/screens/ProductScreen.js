@@ -18,6 +18,7 @@ import {
   createProductReview,
 } from '../actions/productActions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+import Meta from '../components/Meta';
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -64,6 +65,7 @@ const ProductScreen = ({ history, match }) => {
         GO BACK
       </Link>
       <Row>
+        <Meta title={product.name} />
         <Col md={6}>
           {/* fluid makes the image fit inside the container */}
           <Image src={product.image} alt={product.name} fluid />
@@ -143,7 +145,7 @@ const ProductScreen = ({ history, match }) => {
         <Col md={6}>
           <h2>REVIEWS</h2>
           {product.reviews.length === 0 && <Message>NO REVIEWS YET</Message>}
-          <ListGroup variant="flush">
+          <ListGroup className="review-rating" variant="flush">
             {product.reviews.map((review) => (
               <ListGroup.Item key={review._id}>
                 <strong>{review.name}</strong>
@@ -189,6 +191,7 @@ const ProductScreen = ({ history, match }) => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
+        <Col md={6}></Col>
       </Row>
     </>
   );
