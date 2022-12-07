@@ -11,7 +11,7 @@ const Header = ({ history }) => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(logout());
-    history.push('/login');
+    history.push('/');
   };
 
   return (
@@ -23,7 +23,7 @@ const Header = ({ history }) => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <SearchBox history={history} />
+            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
