@@ -55,7 +55,7 @@ h3 {
 .to-top.active {
   opacity: 1;
   pointer-events: auto;
-  bottom: 32px;
+  bottom: 40px;
 }
 
 /* carousel */
