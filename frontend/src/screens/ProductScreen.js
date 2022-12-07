@@ -155,38 +155,40 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup.Item>
             ))}
             <ListGroup.Item>
-              <h2>WRITE A REVIEW</h2>
               {errorReviewCreate && <Message>{errorReviewCreate}</Message>}
               {userInfo && (
-                <Form onSubmit={submitHandler}>
-                  <Form.Group controlId="rating" className="mt-3">
-                    <Form.Label>RATING</Form.Label>
-                    <Form.Control
-                      as="select"
-                      onChange={(e) => setRating(e.target.value)}
-                      value={rating}
-                    >
-                      <option value="">SELECT</option>
-                      <option value="1">1 - POOR</option>
-                      <option value="2">2 - FAIR</option>
-                      <option value="3">3 - AVERAGE</option>
-                      <option value="4">4 - GOOD</option>
-                      <option value="5">5 - EXCELLENT</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId="comment" className="mt-3">
-                    <Form.Label>COMMENT</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      row="3"
-                      onChange={(e) => setComment(e.target.value)}
-                      value={comment}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Button variant="primary" type="submit" className="mt-3">
-                    SUBMIT
-                  </Button>
-                </Form>
+                <>
+                  <h2>WRITE A REVIEW</h2>
+                  <Form onSubmit={submitHandler}>
+                    <Form.Group controlId="rating" className="mt-3">
+                      <Form.Label>RATING</Form.Label>
+                      <Form.Control
+                        as="select"
+                        onChange={(e) => setRating(e.target.value)}
+                        value={rating}
+                      >
+                        <option value="">SELECT</option>
+                        <option value="1">1 - POOR</option>
+                        <option value="2">2 - FAIR</option>
+                        <option value="3">3 - AVERAGE</option>
+                        <option value="4">4 - GOOD</option>
+                        <option value="5">5 - EXCELLENT</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="comment" className="mt-3">
+                      <Form.Label>COMMENT</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        row="3"
+                        onChange={(e) => setComment(e.target.value)}
+                        value={comment}
+                      ></Form.Control>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" className="mt-3">
+                      SUBMIT
+                    </Button>
+                  </Form>
+                </>
               )}
             </ListGroup.Item>
           </ListGroup>
