@@ -2,7 +2,7 @@
   "name": "frontend",
   "proxy": "http://127.0.0.1:5000",
   "version": "0.1.0",
-  "main": "../index.js",
+  "main": "../server.js",
   "homepage": "./",
   "private": true,
   "dependencies": {

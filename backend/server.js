@@ -43,7 +43,8 @@ app.get('/api/config/razorpay', (req, res) =>
   })
 );
 
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+//const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')));
