@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "E-commerce site",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently -k \"npm run server\" \"cd frontend && cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron .",
+    "build": "cd frontend && npm run build && cd .. && electron-builder",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
@@ -18,7 +19,9 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
+    "electron-is-dev": "^2.0.0",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -28,6 +31,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
+    "electron": "^22.0.0",
     "nodemon": "^2.0.20"
   },
   "engines": {
